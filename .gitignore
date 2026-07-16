@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+venv/
+.venv/
+env/
+.env
+.env.local
+.env.*.local
+
+# Next.js Build
+.next/
+out/
+build/
+dist/
+
+# Python caching & logs
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
+*.log
+
+# Databases & OS files
+*.db
+*.sqlite
+.DS_Store
+Thumbs.db
