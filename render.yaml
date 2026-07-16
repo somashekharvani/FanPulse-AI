@@ -1,0 +1,24 @@
+services:
+  # FastAPI Backend Service
+  - type: web
+    name: fanpulse-backend
+    env: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        value: sqlite:///./fanpulse.db  # Falls back to SQLite; replace with PostgreSQL in Render UI
+      - key: JWT_SECRET
+        generateValue: true
+
+  # Next.js Frontend Service
+  - type: web
+    name: fanpulse-frontend
+    env: node
+    rootDir: frontend
+    buildCommand: npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        value: https://fanpulse-backend.onrender.com

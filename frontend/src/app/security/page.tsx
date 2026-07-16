@@ -221,7 +221,7 @@ export default function SecurityDispatch() {
       await fetch(`${API_BASE}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: "security@fanpulse.com", password: "Password123!", role: "security" }),
+        body: JSON.stringify({ email: "security@fanpulse.ai", password: "Demo@2026", role: "security" }),
       });
     } catch (e) {}
 
@@ -229,7 +229,7 @@ export default function SecurityDispatch() {
       const res = await fetch(`${API_BASE}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: "security@fanpulse.com", password: "Password123!" }),
+        body: JSON.stringify({ email: "security@fanpulse.ai", password: "Demo@2026" }),
       });
       const data = await res.json();
       if (res.ok) {

@@ -314,7 +314,7 @@ export default function FanCompanion() {
       await fetch(`${API_BASE}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: "somashekhar@fanpulse.com", password: "Password123!", role: "fan" })
+        body: JSON.stringify({ email: "fan@fanpulse.ai", password: "Demo@2026", role: "fan" })
       });
     } catch (e) {}
 
@@ -322,7 +322,7 @@ export default function FanCompanion() {
       const res = await fetch(`${API_BASE}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: "somashekhar@fanpulse.com", password: "Password123!" })
+        body: JSON.stringify({ email: "fan@fanpulse.ai", password: "Demo@2026" })
       });
       const data = await res.json();
       if (res.ok) {

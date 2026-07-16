@@ -115,8 +115,8 @@ export default function Home() {
     playBeep();
     setSelectedRole(role);
     setMfaRequired(false);
-    setEmail(`${role}@fanpulse.com`);
-    setPassword("Password123!");
+    setEmail(`${role}@fanpulse.ai`);
+    setPassword("Demo@2026");
     setMfaCode(role === "organizer" ? "123456" : "");
     setAuthError("");
     setAuthPortal("login");
@@ -456,7 +456,7 @@ export default function Home() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="user@fanpulse.com"
+                    placeholder="user@fanpulse.ai"
                     className="w-full bg-slate-900/60 border border-white/10 rounded-xl py-2.5 pl-10 pr-4 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-cyan-500"
                   />
                 </div>
@@ -562,8 +562,8 @@ export default function Home() {
             </div>
             <div className="p-3.5 bg-slate-900/40 rounded-xl border border-white/5 text-[9px] text-gray-400 leading-normal font-mono">
               <span className="font-bold text-white block mb-0.5">Quick Demo Logins:</span>
-              <p>Email: {selectedRole}@fanpulse.com</p>
-              <p>Password: Password123!</p>
+              <p>Email: {selectedRole === "fan" ? "fan" : selectedRole}@fanpulse.ai</p>
+              <p>Password: Demo@2026</p>
               {selectedRole === "organizer" && <p>MFA: 123456</p>}
             </div>
           </div>

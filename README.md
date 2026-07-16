@@ -76,11 +76,11 @@ Ensure you have **Node.js (v20+)** and **Python (3.11+)** installed.
 ## Quick-Access Evaluation Credentials
 For staging and rapid checking, the database pre-seeds default credentials. Select your role on the home landing portal and click **Quick Access (Demo Mode)** or register manually:
 
-- **Organizer / Command Center:** `organizer@fanpulse.com` (MFA Code: `123456`)
-- **Volunteer Responder:** `volunteer@fanpulse.com`
-- **Security Dispatcher:** `security@fanpulse.com`
-- **Fan Companion:** `fan@fanpulse.com`
-*Password for all: `Password123!`*
+- **Organizer / Command Center:** `organizer@fanpulse.ai` (MFA Code: `123456`)
+- **Volunteer Responder:** `volunteer@fanpulse.ai`
+- **Security Dispatcher:** `security@fanpulse.ai`
+- **Fan Companion:** `fan@fanpulse.ai`
+*Password for all: `Demo@2026`*
 
 ---
 

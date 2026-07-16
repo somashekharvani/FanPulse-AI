@@ -451,7 +451,7 @@ export default function OrganizerDashboard() {
       await fetch(`${API_BASE}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: "organizer@fanpulse.com", password: "Password123!", role: "organizer" }),
+        body: JSON.stringify({ email: "organizer@fanpulse.ai", password: "Demo@2026", role: "organizer" }),
       });
     } catch (e) {}
 
@@ -459,7 +459,7 @@ export default function OrganizerDashboard() {
       const res = await fetch(`${API_BASE}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: "organizer@fanpulse.com", password: "Password123!" }),
+        body: JSON.stringify({ email: "organizer@fanpulse.ai", password: "Demo@2026" }),
       });
       const data = await res.json();
       
@@ -468,7 +468,7 @@ export default function OrganizerDashboard() {
         const mfaRes = await fetch(`${API_BASE}/auth/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: "organizer@fanpulse.com", password: "Password123!", mfa_code: "123456" }),
+          body: JSON.stringify({ email: "organizer@fanpulse.ai", password: "Demo@2026", mfa_code: "123456" }),
         });
         finalData = await mfaRes.json();
       }

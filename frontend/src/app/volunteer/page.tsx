@@ -119,7 +119,7 @@ export default function VolunteerPortal() {
       await fetch(`${API_BASE}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: "volunteer@fanpulse.com", password: "Password123!", role: "volunteer" }),
+        body: JSON.stringify({ email: "volunteer@fanpulse.ai", password: "Demo@2026", role: "volunteer" }),
       });
     } catch (e) {}
 
@@ -127,7 +127,7 @@ export default function VolunteerPortal() {
       const res = await fetch(`${API_BASE}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: "volunteer@fanpulse.com", password: "Password123!" }),
+        body: JSON.stringify({ email: "volunteer@fanpulse.ai", password: "Demo@2026" }),
       });
       const data = await res.json();
       
@@ -136,7 +136,7 @@ export default function VolunteerPortal() {
         const mfaRes = await fetch(`${API_BASE}/auth/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: "volunteer@fanpulse.com", password: "Password123!", mfa_code: "123456" }),
+          body: JSON.stringify({ email: "volunteer@fanpulse.ai", password: "Demo@2026", mfa_code: "123456" }),
         });
         finalData = await mfaRes.json();
       }
