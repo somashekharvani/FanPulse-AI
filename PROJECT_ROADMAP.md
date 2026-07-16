@@ -31,6 +31,7 @@ This document outlines the three development stages of FanPulse AI - The Global 
 
 ### Stage 2: Human Intelligence & Personalization Layer
 - [x] **Volunteer Portal**: Operations checklist dispatcher.
+- [x] **Security Dispatcher Portal**: Incident filing and emergency dispatcher.
 - [x] **Accessibility AI**: Ramps and step-free navigation route adjustments.
 - [x] **Memory AI**: Arrival patterns and user preferences.
 - [x] **Time Machine**: 8-stage match phases simulator (Halftime concessions, post-match evacuation).

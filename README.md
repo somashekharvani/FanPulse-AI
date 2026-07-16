@@ -1,28 +1,39 @@
 # FanPulse AI — FIFA World Cup 2026 Stadium Operations Console
 
-FanPulse AI is aGenerative AI stadium-operations and crowd-safety management platform tailored for the FIFA World Cup 2026. It integrates real-time telemetry simulations, role-based dashboards, a 3D Digital Twin, and grounded conversational AI.
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](file:///e:/FanPulse%20AI/LICENSE)
+[![NextJS](https://img.shields.io/badge/Frontend-Next.js-black?logo=next.js)](https://nextjs.org)
+[![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688?logo=fastapi)](https://fastapi.tiangolo.com)
+[![Python](https://img.shields.io/badge/Python-3.11%2B-blue?logo=python)](https://python.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5%2B-blue?logo=typescript)](https://typescriptlang.org)
+[![Websockets](https://img.shields.io/badge/RealTime-Websockets-orange)](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
+[![Docker](https://img.shields.io/badge/Docker-Supported-blue?logo=docker)](https://docker.com)
+[![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL%20%7C%20SQLite-blue?logo=postgresql)](https://postgresql.org)
+[![AI Powered](https://img.shields.io/badge/AI-Grounded%20Agents-purple)](file:///e:/FanPulse%20AI/ARCHITECTURE.md#cooperating-multi-agent-system)
+[![FIFA World Cup 2026](https://img.shields.io/badge/FIFA-World%20Cup%202026-red)](https://fifa.com)
+[![Accessibility Ready](https://img.shields.io/badge/Accessibility-WCAG%202.1%20AA-brightgreen)](file:///e:/FanPulse%20AI/ACCESSIBILITY.md)
+
+FanPulse AI is a Generative AI stadium-operations and crowd-safety management platform tailored for the FIFA World Cup 2026. It integrates real-time telemetry simulations, role-based dashboards, a 3D Digital Twin, and grounded conversational AI.
+
+---
+
+## Features
+
+- **3D Digital Twin & Global Globe**: Built with Three.js (`react-three-fiber`) to visualize stadium hotspots and all 16 FIFA host cities.
+- **FanPulse Match Day Companion AI**: 4-tabbed panel including Group Connect coordinate sync, GPS radar maps, battery alerts, child volunteer rescue (privacy secure), smart meeting points, and download memories.
+- **Explainable Multi-Agent Core**: 10 specialized agents collaborating under an orchestrator with complete transparency logs.
+- **Organizer, Volunteer, and Security Portals**: Operations checklists, active logs, and situational dispatches.
+- **AI Crisis Commander**: Simulation modes (heavy rain warning, lost child rescue, medical emergencies) with human-in-the-loop validation gates.
+- **Built-in Accessibility state manager**: High contrast color schemes, voice synthesis, custom fonts, and ramp/step-free route selection.
 
 ---
 
 ## Architectural Design Overview
 
 FanPulse AI splits responsibility cleanly between a responsive frontend and a secure, time-series telemetry backend:
+1. **Next.js Frontend (`/frontend`)**: Next.js App Router built with TypeScript, Tailwind CSS, Framer Motion, and Three.js.
+2. **FastAPI Backend (`/backend`)**: FastAPI, SQLAlchemy ORM (PostgreSQL & SQLite fallback), Websocket gateways (`/ws`), and JWT-based session checks.
 
-1. **FastAPI Backend (`/backend`):**
-   - Implements JWT authentication, refresh-token rotation, and multi-factor validation.
-   - Manages a background simulation loop modeling stadium gates, zone capacity, concessions queues, and transit frequencies.
-   - Grounded `AIService` module integrates Gemini API (`gemini-1.5-flash`) using retrieval-augmented prompting with system instructions isolated for safety. It falls back to a rules-based mock engine if API credentials are omitted.
-   - Broadcaster socket (`/ws`) synchronizes the unified telemetry state + active safety incidents to all connected WebSockets in real time.
-   - Immutable audit logs capture sensitive security updates.
-
-2. **Next.js Frontend (`/frontend`):**
-   - Built with Next.js App Router (TypeScript) and styled using glassmorphic card panels, neon warning alerts, and Framer Motion micro-interactions.
-   - Integrates floating Accessibility settings (text scaling, high-contrast, voice reader synthesizers, and ramp/step-free route selection).
-   - Unified Role-Based Portals:
-     - **Fan:** Telemetry metrics, interactive SVG navigation map, and voice-mic chat companion.
-     - **Volunteer:** Assigned tasks checklists, live broadcast alerts, and AI copilot advisor.
-     - **Security:** Dispatch dispatcher to file incidents and deploy volunteers.
-     - **Organizer:** command dashboard, situation summaries, human-in-loop approvals workspace, and the **3D Digital Twin** built on Three.js (`react-three-fiber`).
+For a detailed structural guide, read the [Architecture Overview](file:///e:/FanPulse%20AI/ARCHITECTURE.md).
 
 ---
 
@@ -31,7 +42,7 @@ FanPulse AI splits responsibility cleanly between a responsive frontend and a se
 Ensure you have **Node.js (v20+)** and **Python (3.11+)** installed.
 
 ### 1. Backend Setup
-1. Open your terminal and navigate to `/backend`.
+1. Navigate to `/backend`.
 2. Create and activate a Python virtual environment:
    ```bash
    python -m venv venv
@@ -48,15 +59,13 @@ Ensure you have **Node.js (v20+)** and **Python (3.11+)** installed.
    ```bash
    cp .env.example .env
    ```
-   *(Optional)* Paste your `GEMINI_API_KEY` in `.env` to enable live Gemini prompts. Leave it empty to use the deterministic grounded local mock engine.
 5. Start the FastAPI server:
    ```bash
    python -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
    ```
-   *The database schema (`fanpulse.db`) will automatically seed on startup.*
 
 ### 2. Frontend Setup
-1. Open a separate terminal and navigate to `/frontend`.
+1. Navigate to `/frontend`.
 2. Install npm packages:
    ```bash
    npm install
@@ -102,3 +111,40 @@ To demonstrate the full-stack real-time updates and safety guidelines, run this 
    - A critical red safety banner pops up at the top: *"STADIUM ALERT: Gate C Overcrowding Warning..."*
    - A proactive nudge toast slides in: *"PROACTIVE NUDGE: Gate C is congested... Alternate Gate C2 is open."*
    - The interactive SVG entry map redraws the route to bypass Gate C and guides the fan through Gate C2 instead. If the Fan clicks **Quiet Route (Ramp)** on the floating accessibility menu, the path highlights the stairs-free ramps around Gate C2.
+
+---
+
+## API Documentation
+
+The backend exposes a full swagger schema at `http://127.0.0.1:8000/docs` (when running locally).
+For a static index of REST endpoints and Websocket payloads, read the [API Documentation](file:///e:/FanPulse%20AI/API_DOCUMENTATION.md).
+
+---
+
+## Deployment & Docker
+
+FanPulse AI is production-ready and fully deployable:
+- **Vercel & Render**: Use the included [render.yaml Blueprint](file:///e:/FanPulse%20AI/render.yaml) for one-click setup.
+- **Docker**: Build and run both backend and frontend using the root [docker-compose.yml](file:///e:/FanPulse%20AI/docker-compose.yml).
+  ```bash
+  docker-compose up --build
+  ```
+
+For a comprehensive guide, read the [Deployment Guide](file:///e:/FanPulse%20AI/DEPLOYMENT.md).
+
+---
+
+## Testing
+
+Backend test suites are powered by `pytest` and can be run using:
+```bash
+cd backend
+python -m pytest
+```
+For more information about frontend type checking and compilation, view the [Testing Guide](file:///e:/FanPulse%20AI/TESTING_GUIDE.md).
+
+---
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](file:///e:/FanPulse%20AI/LICENSE) file for details.
