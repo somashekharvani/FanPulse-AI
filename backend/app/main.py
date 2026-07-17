@@ -112,12 +112,16 @@ async def startup_event():
     simulator.subscribe(on_simulator_update)
     
     # Launch background simulator loop
-    await simulator.start()
+    import os
+    if os.getenv("VERCEL") != "1":
+        await simulator.start()
 
 @app.on_event("shutdown")
 async def shutdown_event():
     # Clean up background tasks
-    await simulator.stop()
+    import os
+    if os.getenv("VERCEL") != "1":
+        await simulator.stop()
 
 # WebSocket Endpoint
 @app.websocket("/ws")

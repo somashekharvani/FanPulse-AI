@@ -6,9 +6,13 @@ from app.core.config import settings
 
 logger = logging.getLogger("fanpulse.database")
 
+import os
 db_url = settings.DATABASE_URL
 if db_url.startswith("postgres://"):
     db_url = db_url.replace("postgres://", "postgresql://", 1)
+
+if os.getenv("VERCEL") == "1" and db_url.startswith("sqlite:///"):
+    db_url = "sqlite:////tmp/fanpulse.db"
 
 connect_args = {}
 engine = None
