@@ -1,5 +1,7 @@
 # FanPulse AI — FIFA World Cup 2026 Stadium Operations Console
 
+### 🚀 [Live Website Demo](https://fan-pulse-ai-pxvy.vercel.app/) | [Live API Service](https://fan-pulse-ai-hk1b.vercel.app/api/v1/global/stats)
+
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](file:///e:/FanPulse%20AI/LICENSE)
 [![NextJS](https://img.shields.io/badge/Frontend-Next.js-black?logo=next.js)](https://nextjs.org)
 [![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688?logo=fastapi)](https://fastapi.tiangolo.com)
