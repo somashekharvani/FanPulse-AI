@@ -8,7 +8,7 @@ const getApiUrl = (): string => {
   return "http://127.0.0.1:8000";
 };
 
-const rawApiUrl = process.env.NEXT_PUBLIC_API_URL || getApiUrl();
+const rawApiUrl = process.env.NEXT_PUBLIC_API_URL || "https://fan-pulse-ai-hk1b.vercel.app";
 export const API_URL = rawApiUrl.endsWith("/") ? rawApiUrl.slice(0, -1) : rawApiUrl;
 export const API_BASE = `${API_URL}/api/v1`;
 
