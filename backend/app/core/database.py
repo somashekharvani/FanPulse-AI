@@ -54,3 +54,6 @@ def init_db():
     # Import models here to register them with Base metadata
     from app.models.models import Base as ModelBase
     ModelBase.metadata.create_all(bind=engine)
+
+# Auto-initialize database tables on import
+init_db()
