@@ -1,41 +1,184 @@
 # FanPulse AI — FIFA World Cup 2026 Stadium Operations Console
 
+![FanPulse AI Hero Banner](frontend/public/images/hero_banner.png)
+
 ### 🚀 [Live Website Demo](https://fan-pulse-ai-pxvy.vercel.app/) | [Live API Service](https://fan-pulse-ai-hk1b.vercel.app/api/v1/global/stats)
 
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](file:///e:/FanPulse%20AI/LICENSE)
-[![NextJS](https://img.shields.io/badge/Frontend-Next.js-black?logo=next.js)](https://nextjs.org)
-[![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688?logo=fastapi)](https://fastapi.tiangolo.com)
-[![Python](https://img.shields.io/badge/Python-3.11%2B-blue?logo=python)](https://python.org)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5%2B-blue?logo=typescript)](https://typescriptlang.org)
-[![Websockets](https://img.shields.io/badge/RealTime-Websockets-orange)](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
-[![Docker](https://img.shields.io/badge/Docker-Supported-blue?logo=docker)](https://docker.com)
-[![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL%20%7C%20SQLite-blue?logo=postgresql)](https://postgresql.org)
-[![AI Powered](https://img.shields.io/badge/AI-Grounded%20Agents-purple)](file:///e:/FanPulse%20AI/ARCHITECTURE.md#cooperating-multi-agent-system)
-[![FIFA World Cup 2026](https://img.shields.io/badge/FIFA-World%20Cup%202026-red)](https://fifa.com)
-[![Accessibility Ready](https://img.shields.io/badge/Accessibility-WCAG%202.1%20AA-brightgreen)](file:///e:/FanPulse%20AI/ACCESSIBILITY.md)
+---
 
-FanPulse AI is a Generative AI stadium-operations and crowd-safety management platform tailored for the FIFA World Cup 2026. It integrates real-time telemetry simulations, role-based dashboards, a 3D Digital Twin, and grounded conversational AI.
+## Prompt Wars Challenge 4
+
+> ### Smart Stadiums & Tournament Operations
+>
+> **Rank:** `554 / 42,325+` (TOP 1.31%)
+>
+> **Optimized Features:**
+> - **Agentic AI Core**: Cooperative multi-agent systems with complete explanation logs.
+> - **3D Digital Twins**: Global globe rendering and detailed Three.js stadium models.
+> - **Global Command Center**: Multi-city operations rankings and collaborative crisis management.
+> - **AI Match Day Companion**: Group tracking, low-battery alerts, and accessible route finders.
+> - **Global Crisis Commander**: Storm radar cells, lost child safety, and medical dispatches.
+> - **Accessibility Core**: High contrast layout, speech synthesis, custom fonts, and stairs-free routing.
+> - **Volunteer Intelligence**: Tasks dispatching, occupancy logs, and responder dashboards.
 
 ---
 
-## Features
+## Why FanPulse AI?
 
-- **3D Digital Twin & Global Globe**: Built with Three.js (`react-three-fiber`) to visualize stadium hotspots and all 16 FIFA host cities.
-- **FanPulse Match Day Companion AI**: 4-tabbed panel including Group Connect coordinate sync, GPS radar maps, battery alerts, child volunteer rescue (privacy secure), smart meeting points, and download memories.
-- **Explainable Multi-Agent Core**: 10 specialized agents collaborating under an orchestrator with complete transparency logs.
-- **Organizer, Volunteer, and Security Portals**: Operations checklists, active logs, and situational dispatches.
-- **AI Crisis Commander**: Simulation modes (heavy rain warning, lost child rescue, medical emergencies) with human-in-the-loop validation gates.
-- **Built-in Accessibility state manager**: High contrast color schemes, voice synthesis, custom fonts, and ramp/step-free route selection.
+FanPulse AI does not merely react to incidents. It proactively:
+- **Observes** (Crowd camera vision telemetry & weather cells)
+- **Understands** (Multi-incident dependencies & accessibility profiles)
+- **Predicts** (Queue timelines, vehicle bottlenecks, & stands capacities)
+- **Reasons** (Multi-agent collaborative reasoning checklogs)
+- **Recommends** (Explainable, structured routing detours)
+- **Approves** (Human-in-the-loop operations checkpoint gates)
+- **Executes** (WebSocket notifications & volunteer task dispatches)
+- **Resolves** (Incident logs verification & cleanup closures)
+
+using **Agentic AI**, **Shared World Models**, **Digital Twins**, **Human Intelligence**, **Accessibility AI**, and **Global Stadium Operations** to deliver safer, smarter, and more inclusive World Cup matches.
 
 ---
 
-## Architectural Design Overview
+## Architecture Diagram
 
-FanPulse AI splits responsibility cleanly between a responsive frontend and a secure, time-series telemetry backend:
-1. **Next.js Frontend (`/frontend`)**: Next.js App Router built with TypeScript, Tailwind CSS, Framer Motion, and Three.js.
-2. **FastAPI Backend (`/backend`)**: FastAPI, SQLAlchemy ORM (PostgreSQL & SQLite fallback), Websocket gateways (`/ws`), and JWT-based session checks.
+Modern stadium operations demand structured layers. FanPulse AI separates responsibility between a responsive, accessible client and a secure, time-series telemetry backend:
 
-For a detailed structural guide, read the [Architecture Overview](file:///e:/FanPulse%20AI/ARCHITECTURE.md).
+```mermaid
+graph TD
+    subgraph Client Portals [Next.js App Router Client]
+        A[Organizer Command Center]
+        B[Fan Companion Chat Portal]
+        C[Volunteer Task Portal]
+        D[Global World Command Room]
+    end
+
+    subgraph API Gateways [FastAPI Core Gateway]
+        E[REST Controller endpoints]
+        F[WebSocket Sync Manager]
+        G[Grounded Multi-Agent Orchestrator]
+    end
+
+    subgraph State Storage [Data Persistence]
+        H[SQLite / PostgreSQL Database]
+        I[Shared World Simulation Model]
+    end
+
+    A <-->|HTTP / WebSockets| E
+    B <-->|HTTP / WebSockets| E
+    C <-->|HTTP / WebSockets| E
+    D <-->|HTTP / WebSockets| E
+    
+    E <--> F
+    F <--> G
+    G <--> I
+    E <--> H
+```
+
+---
+
+## 3D Digital Twin Visualizations
+
+### Dallas Stadium Satellite Space View
+![Dallas Satellite View](frontend/public/images/dallas_satellite.png)
+
+### 3D Digital Twin Hotspot Mesh View
+![Stadium Satellite Twin View](frontend/public/images/stadium_satellite.png)
+
+---
+
+## User Interface Screen Walkthroughs
+
+### 1. Global Command Center (16 Cities & War Room)
+![Global Command Center Mockup](frontend/public/images/global_command_center_mockup.png)
+
+### 2. Organizer Operations Console (Digital Twin & Dispatches)
+![Organizer Dashboard Mockup](frontend/public/images/organizer_dashboard_mockup.png)
+
+### 3. Fan Companion Portal (Smart Radar & GPS Group Connect)
+![Fan Companion Mockup](frontend/public/images/fan_companion_mockup.png)
+
+---
+
+## System Development Stages
+
+### Stage 1: Core System & Telemetry Teleporter
+- **FastAPI Telemetry Simulator**: Background time-series simulator emitting crowd wait times, gate occupancies, vehicle counts, and weather parameters.
+- **WebSocket Gateway**: Real-time broadcast engine syncing dashboard state updates under 500ms.
+- **Organizer Dashboard**: Live CCTV cameras monitoring concourses, command logs terminal, and volunteer response statistics.
+- **Authentication**: JWT-based session security checks, hashed password seeding, and rapid credentials entry.
+
+### Stage 2: 3D Digital Twin & Fan Companion
+- **3D Digital Twin**: Interactive Three.js viewport rendering gate occupancy cylinders and sector crowd heatmaps.
+- **Fan Companion Tabbed Panel**:
+  - **Group Connect**: Group GPS radar mapping, battery percentage tracking, and offline sync.
+  - **Match Memories**: Live journey scorecard and actual client-side `.txt`/`.json` file downloads.
+  - **Assistance**: Voice-to-text input dictation, ticket QR uploader, and custom accessibility toggles.
+
+### Stage 3: Advanced Intelligence & Crisis Command
+- **AI Crisis Commander**: Pre-configured simulation profiles:
+  - *Gate Congestion*: Crowd surges detour flow and trigger volunteer dispatches.
+  - *Heavy Rain Cells*: Tracks storm radars and recommends indoor pathing.
+  - *Medical Emergency*: Reroutes ambulances and notifies nearest medics.
+  - *Lost Child Search*: Matches age/photo coordinates with zero PII leaks.
+- **Human-in-the-loop Guardrails**: Operations alerts must be reviewed and approved by command organizers before public broadcast.
+- **Cooperating Multi-Agent Matrix**: 10 special-purpose subagents (Navigation AI, Accessibility AI, Crowd AI, Volunteer AI, etc.) coordinated under an Orchestrator.
+
+---
+
+## Grounded AI Recommendation Layout
+
+To maximize Prompt Wars explainability compliance, all AI-generated recommendations output a strict structured schema:
+
+```text
+Recommendation: Redirect Flow: open Gate C2 turnstiles, detour Lot B
+WHY: Gate C occupancy is 92%. Weather conditions are normal. Gate C2 occupancy is 34%.
+Confidence: 98%
+Time Saved: 12 Minutes
+Risk: LOW
+AI Contributors: Navigation AI, Crowd AI, Prediction AI, Accessibility AI
+Alternative: Gate B1
+Status: SUCCESSFULLY VALIDATED
+```
+
+---
+
+## Database Diagram
+
+```mermaid
+erDiagram
+    USERS {
+        int id PK
+        string email
+        string hashed_password
+        string role
+        string mfa_token
+    }
+    INCIDENTS {
+        int id PK
+        string title
+        string description
+        string severity
+        string location
+        string status
+        datetime created_at
+    }
+    TASKS {
+        int id PK
+        string title
+        string description
+        string assigned_to
+        string status
+        int incident_id FK
+    }
+    TELEMETRY_LOGS {
+        int id PK
+        string source
+        string data_json
+        datetime timestamp
+    }
+    USERS ||--o{ TASKS : assigns
+    INCIDENTS ||--o{ TASKS : spawns
+```
 
 ---
 
@@ -72,81 +215,65 @@ Ensure you have **Node.js (v20+)** and **Python (3.11+)** installed.
    ```bash
    npm install
    ```
-3. Copy the environment variables:
-   ```bash
-   cp .env.example .env.local
-   ```
-4. Start the Next.js development server:
+3. Start the Next.js development server:
    ```bash
    npm run dev
    ```
-5. Open your browser and navigate to `http://localhost:3000`.
+4. Open your browser and navigate to `http://localhost:3000`.
 
 ---
 
-## Quick-Access Evaluation Credentials
-For staging and rapid checking, the database pre-seeds default credentials. Select your role on the home landing portal and click **Quick Access (Demo Mode)** or register manually:
+## Verification & Testing
 
-- **Organizer / Command Center:** `organizer@fanpulse.ai` (MFA Code: `123456`)
-- **Volunteer Responder:** `volunteer@fanpulse.ai`
-- **Security Dispatcher:** `security@fanpulse.ai`
-- **Fan Companion:** `fan@fanpulse.ai`
-*Password for all: `Demo@2026`*
-
----
-
-## The "One Demo" End-to-End Walkthrough
-
-To demonstrate the full-stack real-time updates and safety guidelines, run this scenario:
-
-1. **Portal Setup:** Open two separate browser tabs side-by-side:
-   - **Tab 1:** Navigate to `http://localhost:3000/fan` (Select *Quick Access* to log in as a Fan).
-   - **Tab 2:** Navigate to `http://localhost:3000/organizer` (Select *Quick Access* to log in as an Organizer).
-2. **Trigger Congestion:** On the **Organizer Tab**, click the blue **"Simulate Gate Congestion"** button on the top-right command header.
-3. **Telemetry Spikes:** On the Organizer screen, notice:
-   - Gate C's waiting time spikes to **48 minutes** and occupancy rises in the telemetry list.
-   - The **3D Digital Twin** reflects the change: Gate C's status cylinder flashes warning-red, and Zone 1 (East entrance) turns red on the capacity heatmap.
-   - The **Safety Broadcast Approvals** workspace lists a new draft alert: *"Gate C Overcrowding Warning: AI Vision detected crowd surge..."*
-4. **Human-in-the-Loop Safeguard:** Shift back to the **Fan Tab**. Observe that **no alerts** have popped up yet. The public is protected from unverified system alarms.
-5. **Approve Alert:** On the **Organizer Tab**, click **"Approve & Broadcast Alert"** on the warning card.
-6. **Real-time Synchronization:** Instantly, on the **Fan Tab**:
-   - A critical red safety banner pops up at the top: *"STADIUM ALERT: Gate C Overcrowding Warning..."*
-   - A proactive nudge toast slides in: *"PROACTIVE NUDGE: Gate C is congested... Alternate Gate C2 is open."*
-   - The interactive SVG entry map redraws the route to bypass Gate C and guides the fan through Gate C2 instead. If the Fan clicks **Quiet Route (Ramp)** on the floating accessibility menu, the path highlights the stairs-free ramps around Gate C2.
-
----
-
-## API Documentation
-
-The backend exposes a full swagger schema at `http://127.0.0.1:8000/docs` (when running locally).
-For a static index of REST endpoints and Websocket payloads, read the [API Documentation](file:///e:/FanPulse%20AI/API_DOCUMENTATION.md).
-
----
-
-## Deployment & Docker
-
-FanPulse AI is production-ready and fully deployable:
-- **Vercel & Render**: Use the included [render.yaml Blueprint](file:///e:/FanPulse%20AI/render.yaml) for one-click setup.
-- **Docker**: Build and run both backend and frontend using the root [docker-compose.yml](file:///e:/FanPulse%20AI/docker-compose.yml).
-  ```bash
-  docker-compose up --build
-  ```
-
-For a comprehensive guide, read the [Deployment Guide](file:///e:/FanPulse%20AI/DEPLOYMENT.md).
-
----
-
-## Testing
-
-Backend test suites are powered by `pytest` and can be run using:
+Backend test suites are powered by `pytest` and execute with zero external API dependencies:
 ```bash
 cd backend
-python -m pytest
+$env:PYTHONPATH="."
+pytest
 ```
-For more information about frontend type checking and compilation, view the [Testing Guide](file:///e:/FanPulse%20AI/TESTING_GUIDE.md).
 
 ---
 
-## License
+## Accessibility Compliance
 
-This project is licensed under the MIT License - see the [LICENSE](file:///e:/FanPulse%20AI/LICENSE) file for details.
+Every portal supports:
+- **Keyboard Navigation**: Clean tabbed layout focus shifts using standard index triggers.
+- **High Contrast Toggle**: Standard accessibility contrast overrides for visually impaired judges.
+- **Font Scaling**: Dynamic viewport text size overrides.
+- **Screen Readers**: WCAG 2.1 AA compliant aria-labels.
+
+---
+
+## Repository Structure
+
+```text
+E:\FANPULSE AI
+├── backend
+│   ├── app
+│   │   ├── core         # Database setup, configurations, and JWT handlers
+│   │   ├── models       # SQLAlchemy DB schemas
+│   │   ├── routers      # API endpoint controllers (incidents, global command, volunteers)
+│   │   └── main.py      # Entry point for the FastAPI server
+│   └── tests            # Pytest test cases
+└── frontend
+    ├── public           # SVG indicators and generated PNG/JPG assets
+    └── src
+        ├── app          # Next.js page routers (/fan, /organizer, /global, /volunteer)
+        ├── components   # Reusable Three.js twin components and dashboard charts
+        └── utils        # WebSocket triggers, audio notifications, and API controllers
+```
+
+---
+
+## Future Roadmap
+
+- **Live Video Feed Analytics**: Real-time crowd occupancy tracking using YOLO models.
+- **Federated World Models**: Edge-synchronized operations databases across all 16 host cities.
+- **Ultra-Wideband Location Tracking**: Precise stands coordinates mapping for search-and-rescue teams.
+
+---
+
+## Authors & License
+
+- Developed by **Somashekhar Vani** and teammates for Prompt Wars.
+- Licensed under the **MIT License** - see the [LICENSE](file:///e:/FanPulse%20AI/LICENSE) file for details.

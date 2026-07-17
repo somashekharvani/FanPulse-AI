@@ -52,18 +52,112 @@ export default function OrganizerDashboard() {
   const [impactSequenceStep, setImpactSequenceStep] = useState<number>(0);
   const [localWeather, setLocalWeather] = useState({ temp: "29°C", humidity: "62%", wind: "11 km/h", rain: "0%" });
 
-  // Time Machine States: 8 States
+  // Time Machine States: 6 Grounded States
   const timeMachinePhases = [
-    { name: "PRE MATCH", fans: 35000, waitTime: "3m", occupancy: "42%", recommendations: "Open Gate C queues nominal." },
-    { name: "KICKOFF", fans: 52000, waitTime: "8m", occupancy: "68%", recommendations: "Surge at Gate A turnstiles. Distribute flow." },
-    { name: "FIRST HALF", fans: 65000, waitTime: "2m", occupancy: "80%", recommendations: "Crowd flow nominal. CCTV feed tracking stands." },
-    { name: "HALFTIME", fans: 68500, waitTime: "15m", occupancy: "94%", recommendations: "Redirect fans to underutilized Concourse FC-03." },
-    { name: "SECOND HALF", fans: 68142, waitTime: "3m", occupancy: "90%", recommendations: "Nominal operations. Micro weather radar clear." },
-    { name: "MATCH ENDING", fans: 68142, waitTime: "22m", occupancy: "96%", recommendations: "Exit bottlenecks detected. Direct flow to Gate C2." },
-    { name: "POST MATCH", fans: 54000, waitTime: "10m", occupancy: "75%", recommendations: "Direct flow to Metro Transit M3 loop." },
-    { name: "+30 MIN", fans: 15000, waitTime: "2m", occupancy: "25%", recommendations: "Evacuation paths cleared. Bins Section 102 full." }
+    {
+      name: "5:00 PM (Metro)",
+      fans: 35000,
+      waitTime: "3m",
+      occupancy: "42%",
+      weather: "Clear, 82°F",
+      recommendation: "Activate Metro Transit M3 loop detours to balance ingress load",
+      why: "Metro Line M3 arrival rate is rising. Redirecting early arrivals to underutilized Gate A turnstiles will balance ingress.",
+      confidence: "98%",
+      timeSaved: "6 Minutes",
+      accessibilityImpact: "Stairs-free ramps active at Gate A. Handrails & level flooring indicators cleared.",
+      crowdImpact: "Nominal load (Ingress rate is balanced at 150 fans/min).",
+      riskLevel: "LOW",
+      alternative: "Direct fans to Concourse FC-03 food court to balance security queuing.",
+      contributors: ["Navigation AI", "Crowd AI", "Hospitality AI"],
+      status: "SUCCESSFULLY VALIDATED"
+    },
+    {
+      name: "6:00 PM (Parking)",
+      fans: 52000,
+      waitTime: "8m",
+      occupancy: "68%",
+      weather: "Clear, 80°F",
+      recommendation: "Open reserve Lot B detours and enable smart parking redirects",
+      why: "Main exit parking lot occupancy reached 92%. Rerouting incoming vehicles to Parking B avoids entry gridlocks.",
+      confidence: "97%",
+      timeSaved: "14 Minutes",
+      accessibilityImpact: "Accessible shuttle bus routes from Lot B scheduled.",
+      crowdImpact: "Redirects 1,200 vehicles from Lot A congestion zone.",
+      riskLevel: "MEDIUM",
+      alternative: "Lot A overflow staging lines activation.",
+      contributors: ["Traffic AI", "Prediction AI", "Navigation AI"],
+      status: "SUCCESSFULLY VALIDATED"
+    },
+    {
+      name: "6:30 PM (Gate C)",
+      fans: 68500,
+      waitTime: "48m",
+      occupancy: "92%",
+      weather: "Clear, 78°F",
+      recommendation: "Redirect Flow: open Gate C2 turnstiles, detour Lot B",
+      why: "Gate C occupancy is 92%. Weather conditions are normal. Gate C2 occupancy is 34%.",
+      confidence: "98%",
+      timeSaved: "12 Minutes",
+      accessibilityImpact: "Stairs-free ramp paths active for Gate C2 detours.",
+      crowdImpact: "Detours 2,500 incoming fans to balance turnstile throughput.",
+      riskLevel: "LOW",
+      alternative: "Gate B1 redirect protocol.",
+      contributors: ["Navigation AI", "Crowd AI", "Prediction AI", "Accessibility AI"],
+      status: "SUCCESSFULLY VALIDATED"
+    },
+    {
+      name: "HALFTIME (Food)",
+      fans: 68500,
+      waitTime: "15m",
+      occupancy: "94%",
+      weather: "Clear, 75°F",
+      recommendation: "Redirect food queue bottlenecks to Concourse FC-03",
+      why: "Food Court FC-05 wait time is 12 mins. FC-03 wait time is 3 mins. Inventory levels are stable.",
+      confidence: "96%",
+      timeSaved: "9 Minutes",
+      accessibilityImpact: "Accessible low-counter queues flagged active at FC-03.",
+      crowdImpact: "Balances halftime food court congestion peaks.",
+      riskLevel: "LOW",
+      alternative: "Concourse FC-01 concession routes activation.",
+      contributors: ["Hospitality AI", "Crowd AI", "Navigation AI"],
+      status: "SUCCESSFULLY VALIDATED"
+    },
+    {
+      name: "MATCH END (Exit)",
+      fans: 68142,
+      waitTime: "22m",
+      occupancy: "96%",
+      weather: "Clear, 72°F",
+      recommendation: "Activate exit routes through Gate C2 and South Metro links",
+      why: "Primary egress flow at Gate A and B is bottlenecking. Gate C2 and Lot B exit pathways are underutilized.",
+      confidence: "98%",
+      timeSaved: "18 Minutes",
+      accessibilityImpact: "Ramp gates kept open; stairways routes marked bypass on map.",
+      crowdImpact: "Egress routing detours 4,200 fans away from crowded core stairs.",
+      riskLevel: "LOW",
+      alternative: "Gate B2 exit lanes activation.",
+      contributors: ["Navigation AI", "Crowd AI", "Prediction AI"],
+      status: "SUCCESSFULLY VALIDATED"
+    },
+    {
+      name: "POST MATCH",
+      fans: 15000,
+      waitTime: "2m",
+      occupancy: "25%",
+      weather: "Clear, 70°F",
+      recommendation: "Clear evacuation paths and deploy waste management teams",
+      why: "Evacuation is 85% complete. Cleanup teams assigned to sector bottlenecks.",
+      confidence: "99%",
+      timeSaved: "None (Evacuation Complete)",
+      accessibilityImpact: "Wheelchair assistance shuttles active at gate zones.",
+      crowdImpact: "Cleanup teams dispatched to high crowd zones.",
+      riskLevel: "LOW",
+      alternative: "Nominal cleanup schedule.",
+      contributors: ["Volunteer AI", "Hospitality AI"],
+      status: "SUCCESSFULLY VALIDATED"
+    }
   ];
-  const [timeMachineIndex, setTimeMachineIndex] = useState(1); // default to NOW (index 1)
+  const [timeMachineIndex, setTimeMachineIndex] = useState(2); // default to Gate C (index 2)
 
   // Infrastructure Health Telemetry metrics
   const [infrastructureHealth, setInfrastructureHealth] = useState<any>({
@@ -529,7 +623,62 @@ export default function OrganizerDashboard() {
 
   const pendingIncidents = incidents.filter(inc => inc.status === "reported" || inc.status === "critical_evacuation");
   const activePhase = timeMachinePhases[timeMachineIndex];
-  const displayState = isForecastView ? forecastState || venueState : venueState;
+  // Dynamically compute displayState matching the active Time Machine Phase
+  const computedState = {
+    gate_status: {
+      "Gate A": { 
+        status: "open", 
+        queue_length: activePhase.name.includes("Metro") ? 45 : (activePhase.name.includes("Gate C") ? 18 : 15), 
+        wait_time_min: activePhase.name.includes("Metro") ? 8 : (activePhase.name.includes("Gate C") ? 4 : 3),
+        throughput_per_min: 8
+      },
+      "Gate B": { 
+        status: "open", 
+        queue_length: activePhase.name.includes("Parking") ? 38 : 22, 
+        wait_time_min: activePhase.name.includes("Parking") ? 10 : 5,
+        throughput_per_min: 6
+      },
+      "Gate C": { 
+        status: "open", 
+        queue_length: activePhase.name.includes("Gate C") ? 92 : (activePhase.name.includes("Exit") ? 40 : 12), 
+        wait_time_min: activePhase.name.includes("Gate C") ? 48 : (activePhase.name.includes("Exit") ? 15 : 3),
+        throughput_per_min: 10
+      },
+      "Gate C2": { 
+        status: activePhase.name.includes("Gate C") || activePhase.name.includes("Exit") || activePhase.name.includes("POST") ? "open" : "closed", 
+        queue_length: activePhase.name.includes("Gate C") ? 12 : 0, 
+        wait_time_min: activePhase.name.includes("Gate C") ? 2 : 0,
+        throughput_per_min: activePhase.name.includes("Gate C") ? 8 : 0
+      }
+    },
+    zone_occupancy: {
+      "Zone 3 (East stands)": { occupancy_pct: activePhase.name.includes("POST") ? 25 : (activePhase.name.includes("Exit") ? 75 : 80) },
+      "Zone 4 (West stands)": { occupancy_pct: activePhase.name.includes("POST") ? 20 : (activePhase.name.includes("Exit") ? 70 : 85) },
+      "Zone 2 (Concourse North)": { occupancy_pct: activePhase.name.includes("HALFTIME") ? 94 : (activePhase.name.includes("POST") ? 15 : 45) },
+      "Zone 5 (South stands)": { occupancy_pct: activePhase.name.includes("POST") ? 10 : (activePhase.name.includes("Exit") ? 60 : 70) }
+    },
+    concessions: {
+      restrooms: { 
+        "WR-07": activePhase.name.includes("HALFTIME") ? "heavy" : "nominal", 
+        "WR-04": "nominal" 
+      },
+      food_inventory: { 
+        "FC-03": "nominal", 
+        "FC-05": activePhase.name.includes("HALFTIME") ? "low" : "nominal" 
+      },
+      wait_times: { 
+        "FC-03": 3, 
+        "FC-05": activePhase.name.includes("HALFTIME") ? 12 : 4 
+      }
+    },
+    weather_transit: {
+      temp_f: activePhase.name.includes("5:00") ? 82 : (activePhase.name.includes("6:00") ? 80 : 75),
+      conditions: activePhase.weather || "Clear",
+      train_wait_min: activePhase.name.includes("Metro") ? 9 : 4
+    }
+  };
+
+  const displayState = isForecastView ? forecastState || computedState : computedState;
 
   return (
     <div className="flex-1 flex flex-col h-full font-sans bg-[#040508] text-white min-h-screen overflow-x-hidden relative">
@@ -814,7 +963,7 @@ export default function OrganizerDashboard() {
               <span className="text-white">Active Crowd: <strong className="text-cyan-400">{activePhase.fans} Fans</strong></span>
             </div>
             <div className="text-right">
-              <p className="text-gray-400">AI Recommendation: {activePhase.recommendations}</p>
+              <p className="text-gray-400">AI Recommendation: {activePhase.recommendation}</p>
             </div>
           </div>
 
@@ -869,39 +1018,64 @@ export default function OrganizerDashboard() {
           </div>
 
           {/* AI AGENTS CONTRIBUTION PANEL & RECOMMENDATION */}
-          <div className="p-5 rounded-xl border border-cyan-500/20 bg-slate-950/40 space-y-4">
-            <span className="text-xs font-bold text-cyan-400 uppercase tracking-widest block flex items-center gap-1.5">
-              <Cpu size={14} className="text-cyan-400" /> AI Agentic Decision Contributions
+          <div className="p-5 rounded-xl border border-cyan-500/20 bg-slate-950/40 space-y-4 animate-fadeIn">
+            <span className="text-xs font-bold text-cyan-400 uppercase tracking-widest block flex items-center gap-1.5 font-mono">
+              <Cpu size={14} className="text-cyan-400" /> Grounded AI Recommendation Details
             </span>
-            <div className="p-4 bg-slate-900/60 rounded-xl border border-white/5 space-y-3">
-              <div className="flex justify-between items-center">
-                <div>
-                  <span className="text-gray-500 text-[8px] uppercase tracking-widest block">Active Decision recommendation</span>
-                  <p className="text-white text-xs font-bold font-mono">Redirect Flow: open Gate C2 turnstiles, detour Lot B</p>
+            <div className="p-4 bg-slate-900/60 rounded-xl border border-white/5 space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xxs font-mono">
+                <div className="space-y-2.5">
+                  <p><span className="text-gray-500 uppercase tracking-wider block font-bold text-[8px]">Recommendation</span> <strong className="text-white text-[11px] block mt-0.5">{activePhase.recommendation}</strong></p>
+                  <p className="pt-2"><span className="text-gray-500 uppercase tracking-wider block font-bold text-[8px]">Grounded WHY (Reasoning)</span> <span className="text-gray-300 block leading-relaxed mt-0.5">{activePhase.why}</span></p>
                 </div>
-                <div className="text-right">
-                  <span className="text-gray-500 text-[8px] uppercase tracking-widest block">Confidence Score</span>
-                  <span className="text-emerald-400 text-xs font-bold font-mono">96%</span>
+                <div className="grid grid-cols-2 gap-3 bg-slate-950/60 p-3 rounded-lg border border-white/5 text-[9px] h-fit">
+                  <div>
+                    <span className="text-gray-500 text-[7px] uppercase tracking-wider block font-bold">Confidence Score</span>
+                    <strong className="text-emerald-400 text-xs">{activePhase.confidence}</strong>
+                  </div>
+                  <div>
+                    <span className="text-gray-500 text-[7px] uppercase tracking-wider block font-bold">Time Saved</span>
+                    <strong className="text-cyan-400 text-xs">{activePhase.timeSaved}</strong>
+                  </div>
+                  <div>
+                    <span className="text-gray-500 text-[7px] uppercase tracking-wider block font-bold">Risk Level</span>
+                    <strong className={`text-xs ${activePhase.riskLevel === "LOW" ? "text-emerald-400" : "text-amber-400"}`}>{activePhase.riskLevel}</strong>
+                  </div>
+                  <div>
+                    <span className="text-gray-500 text-[7px] uppercase tracking-wider block font-bold">Status</span>
+                    <strong className="text-cyan-400 text-[9px]">{activePhase.status}</strong>
+                  </div>
+                </div>
+              </div>
+
+              <div className="border-t border-white/5 pt-3 text-xxs font-mono space-y-2">
+                <div>
+                  <span className="text-gray-500 uppercase tracking-wider block font-bold text-[8px] mb-1">Impact Analytics</span>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-[9px] text-gray-300">
+                    <p>• Accessibility Impact: <strong>{activePhase.accessibilityImpact}</strong></p>
+                    <p>• Crowd Flow Impact: <strong>{activePhase.crowdImpact}</strong></p>
+                  </div>
+                </div>
+                <div className="pt-2 border-t border-white/5">
+                  <span className="text-gray-500 uppercase tracking-wider block font-bold text-[8px] mb-1">Alternative Route</span>
+                  <p className="text-gray-300">Alternative: <strong>{activePhase.alternative}</strong></p>
                 </div>
               </div>
 
               {/* Checkmarks list */}
-              <div className="border-t border-white/5 pt-3 grid grid-cols-2 md:grid-cols-5 gap-3">
-                {[
-                  { name: "Navigation AI", confidence: "94%" },
-                  { name: "Crowd AI", confidence: "96%" },
-                  { name: "Traffic AI", confidence: "96%" },
-                  { name: "Prediction AI", confidence: "95%" },
-                  { name: "Accessibility AI", confidence: "94%" }
-                ].map((ag) => (
-                  <div key={ag.name} className="p-2 bg-slate-950/80 rounded border border-white/5 text-[9px] font-mono space-y-1">
-                    <span className="text-emerald-400 font-bold flex items-center gap-1">✓ {ag.name}</span>
-                    <div className="flex justify-between text-[8px] text-gray-500">
-                      <span>{ag.confidence}</span>
-                      <span>ACTIVE</span>
+              <div className="border-t border-white/5 pt-3">
+                <span className="text-gray-500 uppercase tracking-wider block font-bold text-[8px] mb-2 font-mono">Cooperating AI Agents Contributed</span>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {activePhase.contributors.map((name) => (
+                    <div key={name} className="p-2 bg-slate-950/80 rounded border border-white/5 text-[9px] font-mono space-y-1">
+                      <span className="text-emerald-400 font-bold flex items-center gap-1">✓ {name}</span>
+                      <div className="flex justify-between text-[8px] text-gray-500">
+                        <span>98% Conf</span>
+                        <span>ACTIVE</span>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           {/* AI Collaboration Diagram Flow */}

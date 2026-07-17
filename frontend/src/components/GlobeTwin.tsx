@@ -155,13 +155,24 @@ export const GlobeTwin: React.FC<GlobeTwinProps> = ({
   flagshipCity = "Dallas",
   onShowToast
 }) => {
-  const [selectedCity, setSelectedCity] = useState<string | null>(null);
-  const [cameraTarget, setCameraTarget] = useState<[number, number, number]>([8, 6, 8]);
+  // Start selectedCity as flagshipCity to trigger mount-time cinematic zoom out
+  const [selectedCity, setSelectedCity] = useState<string | null>(flagshipCity);
+  
+  // Find flagship pin coordinates for initial camera focus
+  const initialPin = pins.find(p => p.name.toLowerCase() === flagshipCity.toLowerCase()) || pins[0];
+  const [initialX, initialY, initialZ] = initialPin.position;
+  
+  const [cameraTarget, setCameraTarget] = useState<[number, number, number]>([initialX * 2.0, initialY * 2.0, initialZ * 2.0]);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    // Smoothly zoom out to full Earth view after 1.8 seconds (Cinematic Zoom Out)
+    const timer = setTimeout(() => {
+      setSelectedCity(null);
+    }, 1800);
+    return () => clearTimeout(timer);
+  }, [flagshipCity]);
 
   const handleSelectCity = (cityName: string) => {
     const interactiveCities = ["dallas", "toronto", "mexico city", "vancouver", "miami"];
@@ -187,11 +198,15 @@ export const GlobeTwin: React.FC<GlobeTwinProps> = ({
   };
 
   const CameraController: React.FC = () => {
+    const defaultPos = new THREE.Vector3(7, 5, 7);
     useFrame((state) => {
       if (selectedCity) {
         state.camera.position.lerp(new THREE.Vector3(...cameraTarget), 0.05);
-        state.camera.lookAt(0, 0, 0);
+      } else {
+        // Smoothly zoom out to default overview coordinates
+        state.camera.position.lerp(defaultPos, 0.03);
       }
+      state.camera.lookAt(0, 0, 0);
     });
     return null;
   };

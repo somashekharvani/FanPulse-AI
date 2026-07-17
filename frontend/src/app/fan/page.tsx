@@ -93,6 +93,7 @@ export default function FanCompanion() {
   const [isScanning, setIsScanning] = useState(false);
   const [ticketPlanActive, setTicketPlanActive] = useState(false);
   const [showPassportToast, setShowPassportToast] = useState<string | null>(null);
+  const [guardianNotification, setGuardianNotification] = useState<string | null>(null);
 
   // GPS Group Navigation states
   const [groupActive, setGroupActive] = useState(false);
@@ -113,7 +114,7 @@ export default function FanCompanion() {
   const [lostChildAge, setLostChildAge] = useState("7");
   const [lostChildLoc, setLostChildLoc] = useState("Food Court FC-02");
   const [offlineModeActive, setOfflineModeActive] = useState(false);
-  const [memoryDownloaded, setMemoryDownloaded] = useState<"pdf" | "json" | null>(null);
+  const [memoryDownloaded, setMemoryDownloaded] = useState<"pdf" | "txt" | "json" | null>(null);
 
   // Chat parameters
   const [messages, setMessages] = useState<any[]>([
@@ -251,6 +252,72 @@ export default function FanCompanion() {
       setIsRecording(false);
       handleSendChat("Guide me to the nearest accessible washroom from VIP suites.");
     }, 2800);
+  };
+  
+  const handleDownloadFile = (format: "txt" | "json") => {
+    let content = "";
+    let filename = "";
+    
+    const memoryData = {
+      match: "Brazil vs Spain (World Cup Final)",
+      stadium: "AT&T Stadium (Dallas)",
+      date: "July 19, 2026",
+      journeyScore: "98%",
+      timeSavedMinutes: 34,
+      walkingDistanceMeters: 890,
+      congestionAvoided: "Gate C overcrowding bottlenecks",
+      queueTimeSavedMinutes: 36,
+      accessibilityScore: "100%",
+      recommendationsUsed: 6,
+      aiConfidence: "98%",
+      timeline: [
+        { time: "5:30 PM", event: "Journey started from Dallas residence." },
+        { time: "5:45 PM", event: "AI recommended Metro M3 detour (saved 24 mins)." },
+        { time: "6:10 PM", event: "High congestion detected at Gate C (C2 detour suggested)." },
+        { time: "6:22 PM", event: "Group Member Robert went offline; offline route maps cached." },
+        { time: "Match End", event: "Safely evacuated Dallas AT&T Stadium via South Metro link." }
+      ]
+    };
+
+    if (format === "json") {
+      content = JSON.stringify(memoryData, null, 2);
+      filename = "fanpulse-match-memories.json";
+    } else {
+      content = `===========================================
+FANPULSE AI - WORLD CUP MATCH MEMORIES
+===========================================
+Match: ${memoryData.match}
+Stadium: ${memoryData.stadium}
+Date: ${memoryData.date}
+
+JOURNEY STATISTICS:
+-------------------
+• Match Day Journey Score: ${memoryData.journeyScore}
+• Time Saved: ${memoryData.timeSavedMinutes} Minutes
+• Queue Time Saved: ${memoryData.queueTimeSavedMinutes} Minutes
+• Walking Distance: ${memoryData.walkingDistanceMeters}m
+• Congestion Avoided: ${memoryData.congestionAvoided}
+• Accessibility Score: ${memoryData.accessibilityScore}
+• AI Recommendations Used: ${memoryData.recommendationsUsed}
+• AI Core Confidence: ${memoryData.aiConfidence}
+
+JOURNEY TIMELINE STORY:
+-----------------------
+${memoryData.timeline.map(t => `[${t.time}] ${t.event}`).join("\n")}
+
+===========================================
+System Status: Evacuation Successful (ONLINE)
+===========================================`;
+      filename = "fanpulse-match-memories.txt";
+    }
+
+    const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    link.click();
+    URL.revokeObjectURL(url);
   };
 
   // Drag and drop AI ticket analyzer simulation
@@ -671,6 +738,65 @@ export default function FanCompanion() {
                       </div>
                     </div>
 
+                    {/* AI Fan Guardian Security Alert widget */}
+                    <div className="p-3 rounded-xl border border-red-500/20 bg-red-950/10 space-y-2">
+                      <span className="text-[8px] font-bold text-red-400 uppercase tracking-wider block font-mono flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping" /> AI Fan Guardian Status
+                      </span>
+                      <div className="space-y-1 text-[8px] font-mono text-gray-300">
+                        <p>• <strong>Alert (John)</strong>: Member might become unreachable within 8 minutes (lost signal).</p>
+                        <p>• <strong>Alert (Maria)</strong>: Member moving opposite direction to seat coordinates.</p>
+                        <p>• <strong>Warning (Rahul)</strong>: Critical battery alert (8% remaining).</p>
+                      </div>
+                      <div className="grid grid-cols-2 gap-1.5 pt-1.5 border-t border-white/5">
+                        <button
+                          onClick={() => {
+                            playSuccess();
+                            setGuardianNotification("SUCCESS: Offline route maps cached and sent to John & Rahul.");
+                            setTimeout(() => setGuardianNotification(null), 4000);
+                          }}
+                          className="py-1 bg-slate-900 border border-white/10 hover:border-cyan-500/30 text-cyan-400 rounded text-[7px] font-bold cursor-pointer font-mono text-center hover:bg-slate-950"
+                        >
+                          Save Offline Maps
+                        </button>
+                        <button
+                          onClick={() => {
+                            playSuccess();
+                            setGuardianNotification("SUCCESS: Group meeting point established near Food Court FC-02.");
+                            setTimeout(() => setGuardianNotification(null), 4000);
+                          }}
+                          className="py-1 bg-slate-900 border border-white/10 hover:border-cyan-500/30 text-cyan-400 rounded text-[7px] font-bold cursor-pointer font-mono text-center hover:bg-slate-950"
+                        >
+                          Share Meeting Point
+                        </button>
+                        <button
+                          onClick={() => {
+                            playSuccess();
+                            setGuardianNotification("SUCCESS: Security Volunteer Team dispatched to assist Rahul.");
+                            setTimeout(() => setGuardianNotification(null), 4000);
+                          }}
+                          className="py-1 bg-slate-900 border border-white/10 hover:border-cyan-500/30 text-cyan-400 rounded text-[7px] font-bold cursor-pointer font-mono text-center hover:bg-slate-950"
+                        >
+                          Notify Volunteers
+                        </button>
+                        <button
+                          onClick={() => {
+                            playSuccess();
+                            setGuardianNotification("SUCCESS: Optimized stairs-free route shared to Maria's device.");
+                            setTimeout(() => setGuardianNotification(null), 4000);
+                          }}
+                          className="py-1 bg-slate-900 border border-white/10 hover:border-cyan-500/30 text-cyan-400 rounded text-[7px] font-bold cursor-pointer font-mono text-center hover:bg-slate-950"
+                        >
+                          Share Optimized Route
+                        </button>
+                      </div>
+                      {guardianNotification && (
+                        <p className="text-[7px] text-emerald-400 font-mono animate-fadeIn pt-1 leading-normal text-center">
+                          {guardianNotification}
+                        </p>
+                      )}
+                    </div>
+
                     {/* Stadium Mini Map */}
                     <div className="p-3.5 rounded-xl bg-slate-900/40 border border-white/5 space-y-2">
                       <span className="text-[8px] font-bold text-cyan-400 uppercase tracking-wider block font-mono">Stadium Radar Mini Map</span>
@@ -1001,47 +1127,53 @@ export default function FanCompanion() {
                         <strong className="text-emerald-400 text-sm">98%</strong>
                       </div>
                       <div className="grid grid-cols-2 gap-2 text-[8px] text-gray-400">
-                        <p>Walking Time: <strong className="text-white">4 Mins</strong></p>
-                        <p>Incident delays: <strong className="text-white">None</strong></p>
-                        <p>Seat status: <strong className="text-emerald-400">LOCKED</strong></p>
-                        <p>AI assists: <strong className="text-white">4 Times</strong></p>
-                        <p>Time saved: <strong className="text-cyan-400">18 Mins</strong></p>
-                        <p>Accessibility compliance: <strong className="text-white">100%</strong></p>
+                        <p>Time Saved: <strong className="text-cyan-400">34 Mins</strong></p>
+                        <p>Walking Distance: <strong className="text-white">890m</strong></p>
+                        <p>Congestion Avoided: <strong className="text-emerald-400">Gate C bottleneck</strong></p>
+                        <p>Queue Time Saved: <strong className="text-white">36 Mins</strong></p>
+                        <p>Accessibility Compliance: <strong className="text-emerald-400">100% (Ramp Routes)</strong></p>
+                        <p>Recommendation Accuracy: <strong className="text-white">97%</strong></p>
+                        <p>AI Core Confidence: <strong className="text-cyan-400">98%</strong></p>
                       </div>
                     </div>
 
                     {/* AI Stadium Memory Wall */}
                     <div className="p-4 rounded-xl bg-slate-900/50 border border-white/5 space-y-3">
-                      <span className="text-xs font-bold text-gray-400 uppercase tracking-widest block flex items-center gap-1.5">
+                      <span className="text-xs font-bold text-gray-400 uppercase tracking-widest block flex items-center gap-1.5 font-mono">
                         <Sparkles size={14} className="text-cyan-400" /> AI Stadium Memory Wall
                       </span>
-                      <p className="text-[8px] text-gray-500 font-mono">Locally cached match summaries, route statistics, and coordination records from your match day.</p>
+                      <p className="text-[8px] text-gray-500 font-mono">Download your custom journey story, compiled route statistics, and volunteer dispatches from your match day.</p>
                       
-                      <div className="p-3 bg-slate-950/80 rounded-lg border border-white/5 space-y-1 text-xxs font-mono text-gray-400">
-                        <p>• Match Attended: <strong className="text-white">Brazil VS Spain (Final)</strong></p>
-                        <p>• Stadium: <strong className="text-white">AT&T Stadium (Dallas)</strong></p>
-                        <p>• Group size: <strong className="text-white">5 Members</strong></p>
-                        <p>• Global Status: <strong className="text-emerald-400">Success</strong></p>
+                      {/* Timeline Story Visuals */}
+                      <div className="p-3 bg-slate-950/80 rounded-lg border border-white/5 space-y-2 text-[8px] font-mono text-gray-400 leading-normal max-h-[140px] overflow-y-auto">
+                        <span className="text-[7px] text-gray-500 block uppercase font-bold border-b border-white/5 pb-1">Journey Timeline Events</span>
+                        <p>⏱️ <strong className="text-cyan-400">5:30 PM</strong>: Started journey from Dallas residence.</p>
+                        <p>⏱️ <strong className="text-white">5:45 PM</strong>: AI recommended Metro M3 detour (saved 24 mins).</p>
+                        <p>⏱️ <strong className="text-white">6:10 PM</strong>: Congestion detected at Gate C. Detoured to Gate C2.</p>
+                        <p>⏱️ <strong className="text-amber-400">6:22 PM</strong>: Robert went offline. Cached maps & coordinates loaded.</p>
+                        <p>⏱️ <strong className="text-emerald-400">MATCH END</strong>: Safely evacuated AT&T Stadium via South Metro.</p>
                       </div>
 
                       <div className="grid grid-cols-2 gap-2 pt-2">
                         <button
                           onClick={() => {
                             playSuccess();
-                            setMemoryDownloaded("pdf");
+                            handleDownloadFile("txt");
+                            setMemoryDownloaded("txt");
                             setTimeout(() => setMemoryDownloaded(null), 3000);
                           }}
-                          className="py-2.5 rounded bg-cyan-500 text-slate-950 text-[9px] font-mono font-bold cursor-pointer border-none hover:bg-cyan-400 transition-all"
+                          className="py-2.5 rounded bg-cyan-500 text-slate-950 text-[9px] font-mono font-bold cursor-pointer border-none hover:bg-cyan-400 transition-all text-center"
                         >
-                          Download Memory PDF
+                          Download Memory Story
                         </button>
                         <button
                           onClick={() => {
                             playSuccess();
+                            handleDownloadFile("json");
                             setMemoryDownloaded("json");
                             setTimeout(() => setMemoryDownloaded(null), 3000);
                           }}
-                          className="py-2.5 rounded bg-slate-900 border border-white/10 hover:border-cyan-500/30 text-[9px] font-mono font-bold text-cyan-400 cursor-pointer transition-all"
+                          className="py-2.5 rounded bg-slate-900 border border-white/10 hover:border-cyan-500/30 text-[9px] font-mono font-bold text-cyan-400 cursor-pointer transition-all text-center"
                         >
                           Download Memory JSON
                         </button>
@@ -1151,32 +1283,64 @@ export default function FanCompanion() {
 
                     {/* Explainable AI block & Agent Contributions checkmarks */}
                     {!isUser && (m.why || m.agents) && (
-                      <div className="w-[85%] p-3.5 bg-slate-950/90 rounded-xl border border-white/5 space-y-2 font-mono text-[9px] text-gray-400">
-                        {m.why && <p><strong>Explainability:</strong> {m.why}</p>}
+                      <div className="w-[85%] p-3.5 bg-slate-950/90 rounded-xl border border-white/5 space-y-2.5 font-mono text-[8px] text-gray-400">
+                        <span className="text-cyan-400 block font-bold tracking-wider uppercase text-[9px]">Grounded AI Explanation</span>
+                        <div className="grid grid-cols-2 gap-2 text-[8px] border-b border-white/5 pb-2">
+                          <p>• Confidence: <strong className="text-emerald-400">{m.confidence || "98%"}</strong></p>
+                          <p>• Risk Level: <strong className="text-emerald-400">LOW</strong></p>
+                          <p>• Time Saved: <strong className="text-cyan-400">12 Minutes</strong></p>
+                          <p>• Status: <strong className="text-cyan-400">SUCCESSFULLY VALIDATED</strong></p>
+                        </div>
+                        {m.why && <p className="pt-1 leading-normal"><strong className="text-gray-500">WHY (Reasoning):</strong> {m.why}</p>}
+                        <p><strong className="text-gray-500">Alternative:</strong> Use alternate Gate C2 routes or Concourse FC-03 channels.</p>
                         {m.agents && (
                           <div className="pt-1.5 border-t border-white/5">
-                            <span className="text-cyan-400 block font-bold mb-1">COOPERATING AI AGENTS CONTRIBUTED</span>
-                            <div className="flex flex-wrap gap-2 text-[8px]">
+                            <span className="text-gray-500 block font-bold mb-1">COOPERATING AI AGENTS CONTRIBUTED</span>
+                            <div className="flex flex-wrap gap-1 text-[7px]">
                               {m.agents.map((ag: string) => (
-                                <span key={ag} className="px-2 py-0.5 rounded bg-cyan-950 border border-cyan-500/20 text-cyan-400 flex items-center gap-1">
-                                  <CheckCircle2 size={9} className="text-cyan-400" /> {ag}
+                                <span key={ag} className="px-1.5 py-0.5 rounded bg-cyan-950 border border-cyan-500/20 text-cyan-400 flex items-center gap-1">
+                                  <CheckCircle2 size={8} className="text-cyan-400" /> {ag}
                                 </span>
                               ))}
                             </div>
                           </div>
                         )}
-                        <div className="flex justify-between items-center pt-1 border-t border-white/5 text-[8px] text-gray-500">
-                          <span>Model Confidence: {m.confidence || "96%"}</span>
-                          <span>Explainable variables grounded</span>
-                        </div>
                       </div>
                     )}
                   </div>
                 );
               })}
               {chatLoading && (
-                <div className="text-left font-mono text-xxs text-cyan-400 animate-pulse">
-                  &gt; [REASONING] {reasoningStep || "Processing..."}
+                <div className="p-3 bg-slate-950/80 rounded-xl border border-cyan-500/20 text-xxs font-mono text-gray-400 space-y-1 animate-pulse">
+                  <span className="text-cyan-400 font-bold block mb-1">🛰️ AI Co-Pilot Thinking Process...</span>
+                  <p className="flex items-center gap-1.5">
+                    <span className={reasoningStep.includes("Coordination") || reasoningStep.includes("vectors") || reasoningStep.includes("Accessibility") || reasoningStep.includes("grounding") || reasoningStep.includes("ready") ? "text-emerald-400 font-bold font-mono" : "text-gray-600 font-mono"}>
+                      [✓] Observing micro-weather & telemetry states
+                    </span>
+                  </p>
+                  <p className="flex items-center gap-1.5">
+                    <span className={reasoningStep.includes("vectors") || reasoningStep.includes("Accessibility") || reasoningStep.includes("grounding") || reasoningStep.includes("ready") ? "text-emerald-400 font-bold font-mono" : "text-gray-600 font-mono"}>
+                      [✓] Fetching crowd wait times & capacities
+                    </span>
+                  </p>
+                  <p className="flex items-center gap-1.5">
+                    <span className={reasoningStep.includes("Accessibility") || reasoningStep.includes("grounding") || reasoningStep.includes("ready") ? "text-emerald-400 font-bold font-mono" : "text-gray-600 font-mono"}>
+                      [✓] Evaluating accessibility wheelchair parameters
+                    </span>
+                  </p>
+                  <p className="flex items-center gap-1.5">
+                    <span className={reasoningStep.includes("grounding") || reasoningStep.includes("ready") ? "text-emerald-400 font-bold font-mono" : "text-gray-600 font-mono"}>
+                      [✓] Simulating congestion timeline forecast
+                    </span>
+                  </p>
+                  <p className="flex items-center gap-1.5">
+                    <span className={reasoningStep.includes("ready") ? "text-emerald-400 font-bold font-mono" : "text-gray-600 font-mono"}>
+                      [✓] Grounding explainable decision vectors (98% confidence)
+                    </span>
+                  </p>
+                  <div className="text-cyan-400 text-[8px] pt-1 uppercase tracking-wider font-bold">
+                    &gt; {reasoningStep}
+                  </div>
                 </div>
               )}
               <div ref={chatEndRef} />

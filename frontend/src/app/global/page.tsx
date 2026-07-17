@@ -232,6 +232,54 @@ export default function GlobalCommandCenter() {
               </div>
             </div>
           </div>
+
+          {/* Global AI War Room Console */}
+          {warRoom && (
+            <div className="p-4 rounded-xl border border-red-500/20 bg-red-950/5 space-y-3 font-mono animate-fadeIn">
+              <div className="flex justify-between items-center border-b border-red-500/10 pb-2">
+                <span className="text-[9px] font-extrabold text-red-400 tracking-widest uppercase block flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping" /> Global AI War Room Console
+                </span>
+                <span className="text-red-500 text-[9px] font-bold font-mono uppercase bg-red-500/10 border border-red-500/25 px-1.5 py-0.5 rounded">Risk: {warRoom.risk_score}</span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 text-[9px]">
+                <div className="space-y-2">
+                  <span className="text-gray-500 text-[8px] uppercase tracking-wider block font-bold">Active Incidents ({warRoom.active_incidents?.length})</span>
+                  <div className="space-y-1 text-gray-300">
+                    {warRoom.active_incidents?.map((inc: any) => (
+                      <div key={inc.title} className="flex justify-between items-center bg-slate-950/60 p-1.5 rounded border border-white/5">
+                        <span>• {inc.title}</span>
+                        <span className="text-[7px] text-red-400 font-bold uppercase">{inc.severity}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <span className="text-gray-500 text-[8px] uppercase tracking-wider block font-bold">AI Agent Coordination ({warRoom.active_agents?.length})</span>
+                  <div className="flex flex-wrap gap-1">
+                    {warRoom.active_agents?.map((agent: string) => (
+                      <span key={agent} className="px-1.5 py-0.5 rounded bg-cyan-950/40 border border-cyan-500/20 text-cyan-400 text-[7px] font-bold">
+                        {agent}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-2 border-t border-white/5 space-y-1.5">
+                <span className="text-gray-500 text-[8px] uppercase tracking-widest block font-bold">AI Collaborative Resolutions (Validated)</span>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-1.5 text-[8px] text-gray-300">
+                  {warRoom.ai_conclusion?.map((con: string) => (
+                    <div key={con} className="flex items-center gap-1 text-emerald-400 font-bold">
+                      <span>✓</span> <span>{con}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* RIGHT COLUMN: Stadium Rankings, Match Intelligence & Observability */}
